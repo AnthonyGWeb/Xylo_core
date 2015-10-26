@@ -1,0 +1,19 @@
+{
+  "route1": {
+    "pattern": "test/{name}/coucou/{number}",
+    "method": "get",
+    "parameters": {
+      "name" : "/[a-Z]+/",
+      "number": "[0-9]+"
+    }
+  },
+
+  "route2": {
+    "pattern": "hello/world",
+    "method": "post",
+    "parameters": {
+      "name" : "/[a-Z]+/",
+      "number": "[0-9]+"
+    }
+  }
+}
