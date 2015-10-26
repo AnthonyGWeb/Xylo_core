@@ -1,0 +1,12 @@
+{
+  "app1" : {
+    "namespace": "App1\\Kernel",
+    "bootstrap": "\/www\/bootstrap.php"
+  },
+
+  "app2" : {
+    "namespace": "App2\\Kernel",
+    "bootstrap": "\/www\/bootstrap.php",
+    "sapi": "cli"
+  }
+}
