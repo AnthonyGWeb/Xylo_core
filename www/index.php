@@ -8,4 +8,4 @@ use Xylo\Autoloader\Autoloader;
 Autoloader::register();
 
 $application = new \Xylo\Application\Application();
-$application->run();
+$application->init();

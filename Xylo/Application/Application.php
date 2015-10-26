@@ -7,11 +7,18 @@ use Xylo\Route\Route;
 
 class Application
 {
-    public function run()
+    private $router;
+
+    public function init()
     {
         Conf::loadApps();
 
-        $router = new Route();
-        $router->loadRoute();
+        $this->router = new Route();
+        //$this->router->loadRoute();
+    }
+
+    public function run()
+    {
+
     }
 }

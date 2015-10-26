@@ -5,7 +5,9 @@
     "parameters": {
       "name" : "/[a-Z]+/",
       "number": "[0-9]+"
-    }
+    },
+    "controller": "Main",
+    "methode": ""
   },
 
   "route2": {
