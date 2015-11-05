@@ -9,12 +9,17 @@ class Application
 {
     private $router;
 
+    private $globalSettings;
+
+    /**
+     * Initialise app
+     */
     public function init()
     {
-        Conf::loadApps();
+        $this->globalSettings = Conf::loadApps();
 
         $this->router = new Route();
-        //$this->router->loadRoute();
+        $this->router->loadRoute();
     }
 
     public function run()

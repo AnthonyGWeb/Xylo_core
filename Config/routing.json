@@ -1,17 +1,26 @@
 {
   "route1": {
-    "pattern": "test/{name}/coucou/{number}",
+    "pattern": "/test/{name}/coucou/{number}",
     "method": "get",
     "parameters": {
       "name" : "/[a-Z]+/",
       "number": "[0-9]+"
     },
-    "controller": "Main",
-    "methode": ""
+    "controller": "Main::home"
   },
 
   "route2": {
-    "pattern": "hello/world",
+    "pattern": "/hello",
+    "method": "get",
+    "parameters": {
+      "name" : "/[a-Z]+/",
+      "number": "[0-9]+"
+    },
+    "controller": "Main::home"
+  },
+
+  "route3": {
+    "pattern": "/hello/world",
     "method": "post",
     "parameters": {
       "name" : "/[a-Z]+/",
