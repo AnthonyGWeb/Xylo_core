@@ -1,0 +1,19 @@
+{
+    "name": "whirlwind/xylo",
+    "authors": [
+        {
+            "name": "Anthony Grindatto",
+            "email": "a.grindatto@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Portfolio\\": "Portfolio/",
+            "Xylo\\": "Xylo/"
+        }
+    }
+}

@@ -1,4 +1,9 @@
 {
+  "404": {
+    "pattern": "/404",
+    "method": "get",
+    "redirect": "404.html"
+  },
   "route1": {
     "pattern": "/test/{name}/coucou/{number}",
     "method": "get",
@@ -6,25 +11,14 @@
       "name" : "/[a-Z]+/",
       "number": "[0-9]+"
     },
-    "controller": "Main::home"
+    "controller": "Portfolio\\Controller\\Main::home"
   },
 
   "route2": {
     "pattern": "/hello",
     "method": "get",
     "parameters": {
-      "name" : "/[a-Z]+/",
-      "number": "[0-9]+"
     },
-    "controller": "Main::home"
-  },
-
-  "route3": {
-    "pattern": "/hello/world",
-    "method": "post",
-    "parameters": {
-      "name" : "/[a-Z]+/",
-      "number": "[0-9]+"
-    }
+    "controller": "Portfolio\\Controller\\Main::home"
   }
 }
