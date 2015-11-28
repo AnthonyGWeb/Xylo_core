@@ -2,38 +2,62 @@
 
 namespace Xylo\Application;
 
-use Xylo\Conf\Conf;
 use Xylo\Route\Route;
+use Xylo\View\View;
 
 class Application
 {
     private $router;
 
-    private $globalSettings;
+    private $view;
 
     /**
-     * Initialise Portfolio
+     * Initialise App
      */
     public function init()
     {
-        $this->globalSettings = Conf::loadApps();
-
         $this->router = new Route();
         $this->router->loadSettings();
+        $this->view = new View();
     }
 
+    /**
+     * @throws ApplicationException
+     */
     public function run()
     {
         $settings = $this->router->getSettings();
-        // Todo secure var settings
-//        $controllers = explode('::', $settings['controller']);
-//        var_dump($controllers);
-        $this->treatResponse(call_user_func($settings['controller']));
+        if (!isset($settings['controller'])) {
+            throw new ApplicationException("Controller settings is not found");
+        }
 
+        $this->treatResponse(call_user_func($settings['controller']));
     }
 
-    private function treatResponse(Array $response)
+    /**
+     * @param $response
+     */
+    private function treatResponse($response = false)
     {
-        var_dump($response);
+        if ($response !== false && is_array($response)) {
+            $params = isset($response['params']) ? $response['params'] : array();
+            $this->view->callView($response['template'], $params);
+        }
+    }
+
+    /**
+     *
+     */
+    public function executePreCallPlugins()
+    {
+        // TODO session
+    }
+
+    /**
+     *
+     */
+    public function executePostCallPlugins()
+    {
+
     }
 }

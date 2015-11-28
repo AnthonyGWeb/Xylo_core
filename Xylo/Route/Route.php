@@ -25,6 +25,7 @@ class Route
 
     public function loadSettings()
     {
+
         foreach ($this->routes as $nameOfRoute => $settings) {
             Logger::log('Route testing ' . $nameOfRoute, Logger::LOG_DEBUG);
             $pattern = preg_replace('/{[a-z]*}/', '.+', $settings['pattern']);
@@ -36,8 +37,8 @@ class Route
         }
         Logger::log('No route match aborting ...', Logger::LOG_DEBUG);
 
-        //header('Location: index.php/404'); // TODO fix bug redirect
-        die; // Todo return 404 page
+        header('Location: /404.html');
+        die;
     }
 
     public function getSettings()
