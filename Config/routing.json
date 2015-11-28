@@ -1,9 +1,4 @@
 {
-  "404": {
-    "pattern": "/404",
-    "method": "get",
-    "redirect": "404.html"
-  },
   "route1": {
     "pattern": "/test/{name}/coucou/{number}",
     "method": "get",
@@ -11,7 +6,7 @@
       "name" : "/[a-Z]+/",
       "number": "[0-9]+"
     },
-    "controller": "Portfolio\\Controller\\Main::home"
+    "controller": "App\\Controller\\Main::home"
   },
 
   "route2": {
@@ -19,6 +14,14 @@
     "method": "get",
     "parameters": {
     },
-    "controller": "Portfolio\\Controller\\Main::home"
+    "controller": "App\\Controller\\Main::home"
+  },
+
+  "route3": {
+    "pattern": "/helloworld",
+    "method": "get",
+    "parameters": {
+    },
+    "controller": "App\\Controller\\Main::test"
   }
 }
