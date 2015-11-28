@@ -4,3 +4,5 @@ logs/
 App/Controller/
 App/Views/
 App/www/components/
+composer.lock
+cache/*
