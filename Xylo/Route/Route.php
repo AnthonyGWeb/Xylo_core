@@ -8,7 +8,7 @@ class Route
 {
     private $route;
 
-    private $settings;
+    private $settings = array();
 
     private $routes = array();
 
@@ -23,6 +23,11 @@ class Route
         }
     }
 
+    /**
+     * Load settings of route
+     *
+     * @return bool
+     */
     public function loadSettings()
     {
 
@@ -41,8 +46,19 @@ class Route
         die;
     }
 
-    public function getSettings()
+//    public function getSettings()
+//    {
+//        return $this->settings;
+//    }
+
+    /**
+     * Getter
+     *
+     * @param $nameOfParameters
+     * @return mixed
+     */
+    public function __get($nameOfParameters)
     {
-        return $this->settings;
+        return $this->settings[$nameOfParameters];
     }
 }

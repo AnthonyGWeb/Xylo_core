@@ -26,12 +26,12 @@ class Application
      */
     public function run()
     {
-        $settings = $this->router->getSettings();
-        if (!isset($settings['controller'])) {
+        $controller = $this->router->controller;
+        if (!isset($controller)) {
             throw new ApplicationException("Controller settings is not found");
         }
 
-        $this->treatResponse(call_user_func($settings['controller']));
+        $this->treatResponse(call_user_func($controller));
     }
 
     /**
