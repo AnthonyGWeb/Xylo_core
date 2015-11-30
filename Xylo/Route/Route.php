@@ -46,11 +46,6 @@ class Route
         die;
     }
 
-//    public function getSettings()
-//    {
-//        return $this->settings;
-//    }
-
     /**
      * Getter
      *

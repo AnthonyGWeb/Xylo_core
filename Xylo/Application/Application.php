@@ -2,14 +2,26 @@
 
 namespace Xylo\Application;
 
+use Xylo\Parameter\Parameters;
 use Xylo\Route\Route;
 use Xylo\View\View;
 
 class Application
 {
+    /**
+     * @var $router | instance of Router
+     */
     private $router;
 
+    /**
+     * @var $view | instance of View
+     */
     private $view;
+
+    /**
+     * @var $parameters | instance of Parameters
+     */
+    private $parameters;
 
     /**
      * Initialise App
@@ -19,6 +31,7 @@ class Application
         $this->router = new Route();
         $this->router->loadSettings();
         $this->view = new View();
+        $this->parameters = new Parameters($this->router);
     }
 
     /**
@@ -31,7 +44,7 @@ class Application
             throw new ApplicationException("Controller settings is not found");
         }
 
-        $this->treatResponse(call_user_func($controller));
+        $this->treatResponse(call_user_func($controller, $this->parameters));
     }
 
     /**
