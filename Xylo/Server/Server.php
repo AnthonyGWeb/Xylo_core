@@ -5,6 +5,8 @@ class Server
 {
     private $server;
 
+    private static $singleton;
+
     public function __construct()
     {
         $this->server = $_SERVER;
@@ -18,6 +20,10 @@ class Server
 
     public static function getInstance()
     {
-        return new Server();
+        if (self::$singleton instanceof Server) {
+            return self::$singleton;
+        }
+
+        return self::$singleton = new Server();
     }
 }
