@@ -28,10 +28,10 @@ class Application
      */
     public function init()
     {
-        $this->router = new Route();
+        $this->router = Route::getInstance();
         $this->router->loadSettings();
         $this->view = new View();
-        $this->parameters = new Parameters($this->router);
+        $this->parameters = Parameters::getInstance();
     }
 
     /**

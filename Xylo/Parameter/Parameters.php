@@ -1,69 +1,53 @@
 <?php
 namespace Xylo\Parameter;
 
+use Xylo\Parameter\Driver\ParametersGet;
+use Xylo\Parameter\Driver\ParametersPost;
 use Xylo\Route\Route;
 use Xylo\Server\Server;
 
 class Parameters
 {
-    const GET = 'get';
+    const GET = 'GET';
 
-    const POST = 'post';
+    const POST = 'POST';
 
-    private $parameters = array();
+    private static $instanceOfParameters;
 
-    public function __construct(Route $router)
+    private function __construct()
     {
-        if (Server::getInstance()->request_method !== strtoupper($router->method)) {
-            throw new ParametersException("Http method is invalid with settings");
-        }
 
-        switch ($router->method) {
-            case self::POST:
-                $this->retrievePost();
-                break;
-            case self::GET:
-            default:
-                // TODO retrieve get params
-                break;
-        }
     }
 
-    private function check()
+    private static function getInstanceDriver()
     {
-        //TODO
-    }
-
-    private function retrievePost()
-    {
-        $retrieveParameters = explode('&', file_get_contents('php://input'));
-        $parameters = array();
-        foreach ($retrieveParameters as &$parameter) {
-            $params = explode('=', $parameter);
-            $parameters[$params[0]] = $params[1];
+        $method = Server::getInstance()->request_method;
+        if (strtoupper(Route::getInstance()->method) === $method) {
+            switch ($method) {
+                case self::POST:
+                    return new ParametersPost();
+                    break;
+                case self::GET:
+                    return new ParametersGet();
+                    break;
+                default:
+                    throw new ParametersException("Invalid http request method");
+                    break;
+            }
         }
 
-        $this->parameters = $parameters;
+        throw new ParametersException("Request method in route settings is different of http request");
     }
 
     /**
-     * Return all parameters
-     *
-     * @return array
+     * @return Parameters
      */
-    public function getAll()
+    public static function getInstance()
     {
-        return $this->parameters;
-    }
+        if (self::$instanceOfParameters instanceof Parameters) {
+            return self::$instanceOfParameters;
+        }
 
-    /**
-     * Getter
-     *
-     * @param $parameter
-     * @return mixed
-     */
-    public function __get($parameter)
-    {
-        return $this->parameters[$parameter];
+        return self::$instanceOfParameters = self::getInstanceDriver();
     }
 }

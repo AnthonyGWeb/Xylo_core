@@ -7,7 +7,7 @@ class Server
 
     private static $singleton;
 
-    public function __construct()
+    private function __construct()
     {
         $this->server = $_SERVER;
     }

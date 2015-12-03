@@ -12,7 +12,9 @@ class Route
 
     private $routes = array();
 
-    public function __construct()
+    private static $instanceOfRoute;
+
+    private function __construct()
     {
         $search = array('/index.php', '?');
         $this->route = str_replace($search, '', $_SERVER['REQUEST_URI']);
@@ -54,6 +56,19 @@ class Route
      */
     public function __get($nameOfParameters)
     {
-        return $this->settings[$nameOfParameters];
+        return isset($this->settings[$nameOfParameters]) ? $this->settings[$nameOfParameters] : false;
+    }
+
+    /**
+     * Retrieve  singleton instance
+     * @return Route
+     */
+    public static function getInstance()
+    {
+        if (self::$instanceOfRoute instanceof Route) {
+            return self::$instanceOfRoute;
+        }
+
+        return self::$instanceOfRoute = new Route();
     }
 }
