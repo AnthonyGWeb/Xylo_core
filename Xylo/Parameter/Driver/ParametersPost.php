@@ -10,44 +10,49 @@ class ParametersPost implements ParametersDriver
 
     public function __construct()
     {
-        $this->check($this->retrievePost());
+        $this->retrievePost();
     }
 
     /**
-     * Check parameters
+     * Check Parameters
      *
      * @param array $parameters
+     * @param array $routeParameters
+     * @return array
      * @throws ParametersException
      */
-    private function check(array $parameters)
+    private function check(array $parameters, array $routeParameters)
     {
-        $parametersRoute = Route::getInstance()->parameters;
+        $returnParameters = array();
         foreach ($parameters as $parameter => $value) {
-            if (
-                !isset($parametersRoute[$parameter])
-                || preg_match('/' . $parametersRoute[$parameter] . '/', $value) !== 1
+            if (is_array($value) && isset($routeParameters[$parameter])) {
+                if (is_array($routeParameters[$parameter])) {
+                    $returnParameters[$parameter] = $this->check($value, $routeParameters[$parameter]);
+                    continue;
+                }
+            } elseif (
+                isset($routeParameters[$parameter])
+                && preg_match('/' . $routeParameters[$parameter] . '/', $value) === 1
             ) {
-                throw new ParametersException("Illegal parameters : " . $parameter . " value :" . $value);
+                $returnParameters[$parameter] = $value;
+                continue;
             }
+
+            throw new ParametersException("Illegal parameters : " . $parameter . " value :" . var_export($value, true));
         }
-        $this->parameters = $parameters;
+
+        return $returnParameters;
     }
 
     /**
      * Retrieve parameters post
-     *
-     * @return array
      */
     private function retrievePost()
     {
-        $retrieveParameters = explode('&', file_get_contents('php://input'));
         $parameters = array();
-        foreach ($retrieveParameters as &$parameter) {
-            $params = explode('=', $parameter);
-            $parameters[$params[0]] = $params[1];
-        }
+        parse_str(file_get_contents('php://input'), $parameters);
 
-        return $parameters;
+        $this->parameters = $this->check($parameters, Route::getInstance()->parameters);
     }
 
     /**
