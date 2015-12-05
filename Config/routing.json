@@ -1,6 +1,6 @@
 {
-  "route1": {
-    "pattern": "/test/{name}/coucou/{number}",
+  "example_1": {
+    "pattern": "/test/{name}/page/{number}",
     "method": "get",
     "parameters": {
       "name" : "[a-z]+",
@@ -9,32 +9,16 @@
     "controller": "App\\Controller\\Main::home"
   },
 
-  "route2": {
-    "pattern": "/hello",
-    "method": "get",
-    "parameters": {
-    },
-    "controller": "App\\Controller\\Main::home"
-  },
-
-  "route3": {
-    "pattern": "/helloworld",
-    "method": "get",
-    "parameters": {
-    },
-    "controller": "App\\Controller\\Main::test"
-  },
-
-  "send_mail": {
+  "example_2": {
     "pattern": "/send_mail",
     "method": "post",
     "parameters": {
-      "test": "[a-z]+",
-      "coucou": {
+      "test1": "[a-z]+",
+      "test2": {
         "cle1": "[0-9]+",
         "cle2": "[0-9]+"
       }
     },
-    "controller": "App\\Controller\\Main::sendMail"
+    "controller": "App\\Controller\\Main::homePost"
   }
 }
